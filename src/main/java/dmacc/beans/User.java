@@ -1,13 +1,17 @@
 package dmacc.beans;
 
+import java.util.Date;
+
 import java.time.LocalDate;
 import java.time.Period;
+import java.time.ZoneId;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * @author dynob - tjmendenhall2@dmacc.edu
@@ -20,8 +24,9 @@ public class User {
 	@GeneratedValue
 	private long id;
 	private String username;
-	private LocalDate birthdate;
-	private boolean isMature;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date birthdate;
+	private String isMature;
 	@Autowired
 	private Computer cpu;
 	
@@ -35,7 +40,7 @@ public class User {
 	 * @param birthdate
 	 * @param cpu
 	 */
-	public User(long id, String username, LocalDate birthdate, Computer cpu) {
+	public User(long id, String username, Date birthdate, Computer cpu) {
 		super();
 		this.id = id;
 		this.username = username;
@@ -49,7 +54,7 @@ public class User {
 	 * @param birthdate
 	 * @param cpu
 	 */
-	public User(String username, LocalDate birthdate, Computer cpu) {
+	public User(String username, Date birthdate, Computer cpu) {
 		super();
 		this.username = username;
 		this.birthdate = birthdate;
@@ -61,7 +66,7 @@ public class User {
 	 * @param username
 	 * @param birthdate
 	 */
-	public User(String username, LocalDate birthdate) {
+	public User(String username, Date birthdate) {
 		super();
 		this.username = username;
 		this.birthdate = birthdate;
@@ -95,31 +100,32 @@ public class User {
 	/**
 	 * @return the birthdate
 	 */
-	public LocalDate getBirthdate() {
+	public Date getBirthdate() {
 		return birthdate;
 	}
 	/**
 	 * @param birthdate the birthdate to set
 	 */
-	public void setBirthdate(LocalDate birthdate) {
+	public void setBirthdate(Date birthdate) {
 		this.birthdate = birthdate;
 	}
 	/**
 	 * @return the isMature
 	 */
-	public boolean isMature() {
+	public String isMature() {
 		return isMature;
 	}
 	/**
 	 * @param isMature the isMature to set
 	 */
-	public void setMature(LocalDate birthdate) {
+	public void setMature(Date birthdate) {
 		LocalDate current = LocalDate.now();
-		Period p = Period.between(birthdate, current);
-		if (p.getYears() > 18) {
-			this.isMature = true;
+		LocalDate matureDate = current.minusYears(18);
+		Date m1 = convertToDateUsingDate(matureDate);
+		if (birthdate.before(m1)) {
+			this.isMature = "True";
 		} else {
-			this.isMature = false;
+			this.isMature = "False";
 		}
 	}
 	/**
@@ -140,6 +146,15 @@ public class User {
 		return "User [id=" + id + ", username=" + username + ", birthdate=" + birthdate + ", isMature=" + isMature
 				+ ", cpu=" + cpu + "]";
 	}
+	
+	public static Date convertToDateUsingDate(LocalDate date) {
+        return java.sql.Date.valueOf(date);
+    }
+	
+	public static java.util.Date convertToDateUsingInstant(LocalDate date) {
+		java.util.Date newDate = java.util.Date.from(date.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
+        return newDate;
+    }
 	
 		
 }

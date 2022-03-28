@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>View All Users</title>
+</head>
+<body>
+<form>
+<table>
+<tr th:each="currentUser: ${users}">
+	<td th:text="${currentUser.id}" />
+	<td th:text="${currentUser.username}" />
+	<td th:text="${currentUser.birthdate}" />
+	<td th:text="${currentUser.isMature}" />
+	<td th:text="${currentUser.cpu.os}" />
+	<td th:text="${currentUser.cpu.processor}" />
+	<td th:text="${currentUser.cpu.ram}" />
+	<td th:text="${currentUser.cpu.storage}" />
+	<td><a th:href="@{/edit/{id}(id=${currentUser.id})}">Edit</a></td>
+	<td><a th:href="@{/delete/{id}(id=${currentUser.id})}">Delete</a></td>
+	</tr>
+</table>
+</form>
+<a href="../inputUser">Add a new user</a>
+<a href="index.html">Home</a>
+</body>
+</html>

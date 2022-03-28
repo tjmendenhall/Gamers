@@ -1,6 +1,8 @@
 package dmacc.controller;
 
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,9 +17,11 @@ import dmacc.beans.User;
  */
 @Configuration
 public class BeanConfiguration {
+	LocalDate bd = LocalDate.of(1996, 9, 30);
+	Date bd1 = convertToDateUsingDate(bd);
 	@Bean
 	public User user() {
-		User bean = new User("darthswiftee", LocalDate.of(1996, 9, 30));
+		User bean = new User("darthswiftee", bd1);
 		return bean;
 	}
 	
@@ -26,4 +30,8 @@ public class BeanConfiguration {
 		Computer bean = new Computer("Windows", "Intel i7", 16, 1500);
 		return bean;
 	}
+	
+	public static Date convertToDateUsingDate(LocalDate date) {
+        return java.sql.Date.valueOf(date);
+    }
 }

@@ -17,12 +17,12 @@ import dmacc.controller.BeanConfiguration;
 import dmacc.repository.UserRepository;
 
 @SpringBootApplication
-public class GamersApplication implements CommandLineRunner{
+public class GamersApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(GamersApplication.class, args);
 	}
-	
+	/**
 	@Autowired
 	UserRepository repo;
 
@@ -46,6 +46,6 @@ public class GamersApplication implements CommandLineRunner{
 		}
 		
 		((AbstractApplicationContext)appContext).close();
-	}
+	}**/
 
 }

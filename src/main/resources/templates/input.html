@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert New or Edit User</title>
+</head>
+<body>
+<form th:object="${newUser}" th:action="@{/update/{id}(id=${newUser.id})}" method=POST>
+Username: <input name="username" size="20" th:field="*{username}"><br />
+Birthdate: <input type= "date" name="birthdate" th:field="*{birthdate}"><br />
+CPU OS: <input name="cpu.os" size="20" th:field="*{cpu.os}"><br />
+CPU Processor: <input name="cpu.processor" size="20" th:field="*{cpu.processor}"><br />
+CPU RAM: <input name="cpu.ram" size="20" th:field="*{cpu.ram}"><br />
+CPU Storage: <input name="cpu.storage" size="20" th:field="*{cpu.storage}"><br />
+
+<input name="Submit" type="submit" value="submit" />
+</form>
+<a href="../viewAll">View All Users</a>
+</body>
+</html>
