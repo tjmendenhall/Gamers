@@ -112,13 +112,14 @@ public class User {
 	/**
 	 * @return the isMature
 	 */
-	public String isMature() {
+	public String getIsMature() {
 		return isMature;
 	}
 	/**
 	 * @param isMature the isMature to set
 	 */
 	public void setMature(Date birthdate) {
+		this.isMature = "N/A";
 		LocalDate current = LocalDate.now();
 		LocalDate matureDate = current.minusYears(18);
 		Date m1 = convertToDateUsingDate(matureDate);

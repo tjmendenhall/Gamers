@@ -3,17 +3,74 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert New or Edit User</title>
+<script type = "text/javascript">
+
+		function validate() {
+			if(document.myForm.username.value == ""){
+				alert("Please provide a valid username!");
+				document.myForm.username.focus();
+				return false;
+			}
+			if(document.myForm.birthdate.value == null){
+				alert("Please provide a birthdate!");
+				document.myForm.birthdate.focus();
+				return false;
+			}
+			if(document.myForm.cpu.os.value == ""){
+				alert("Please provide an OS for your CPU!");
+				document.myForm.cpu.os.focus();
+				return false;
+			}
+			if(document.myForm.cpu.processor.value == ""){
+				alert("Please provide a processor for your CPU!");
+				document.myForm.cpu.processor.focus();
+				return false;
+			}
+			if(document.myForm.cpu.ram.value == null || document.myForm.cpu.ram.value < 0 || document.myForm.cpu.ram.value == ""){
+				alert("Please provide a RAM value for your CPU!");
+				document.myForm.cpu.ram.focus();
+				return false;
+			}
+			if(document.myForm.cpu.storage.value == null || document.myForm.cpu.storage.value < 0 || document.myForm.cpu.storage.value == ""){
+				alert("Please provide a storage capacity for your CPU!");
+				document.myForm.cpu.storage.focus();
+				return false;
+			}
+		return (true);
+	}
+</script>
 </head>
 <body>
-<form th:object="${newUser}" th:action="@{/update/{id}(id=${newUser.id})}" method=POST>
-Username: <input name="username" size="20" th:field="*{username}"><br />
-Birthdate: <input type= "date" name="birthdate" th:field="*{birthdate}"><br />
-CPU OS: <input name="cpu.os" size="20" th:field="*{cpu.os}"><br />
-CPU Processor: <input name="cpu.processor" size="20" th:field="*{cpu.processor}"><br />
-CPU RAM: <input name="cpu.ram" size="20" th:field="*{cpu.ram}"><br />
-CPU Storage: <input name="cpu.storage" size="20" th:field="*{cpu.storage}"><br />
-
-<input name="Submit" type="submit" value="submit" />
+<form name = "myForm" th:object="${newUser}" th:action="@{/update/{id}(id=${newUser.id})}" onsubmit = return(validate()) method=POST>
+<table cellspacing = "2" cellpadding = "2" border = "1">
+<tr>
+	<td align = "right">Username: </td>
+	<td><input name="username" size="20" th:field="*{username}" /></td>
+</tr>
+<tr>
+	<td align = "right">Birthdate: </td>
+	<td><input type= "date" name="birthdate" th:field="*{birthdate}" /></td>
+</tr>
+<tr>
+	<td align = "right">CPU OS: </td>
+	<td><input name="cpu.os" size="20" th:field="*{cpu.os}"></td>
+</tr>
+<tr>
+	<td align = "right">CPU Processor: </td>
+	<td><input name="cpu.processor" size="20" th:field="*{cpu.processor}" /></td>
+</tr>
+<tr>
+	<td align = "right">CPU RAM: </td>
+	<td><input name="cpu.ram" size="20" th:field="*{cpu.ram}" /></td>
+</tr>
+<tr>
+	<td align ="right">CPU Storage: </td>
+	<td><input name="cpu.storage" size="20" th:field="*{cpu.storage}" /></td>
+</tr>
+<tr>
+	<td align = "right"></td>
+	<td><input name="Submit" type="submit" value="submit" /></td>
+</table>
 </form>
 <a href="../viewAll">View All Users</a>
 </body>
